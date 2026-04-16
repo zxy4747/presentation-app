@@ -1,4 +1,5 @@
 "use client";
+// 強制更新
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
