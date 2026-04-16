@@ -55,7 +55,13 @@ export default function Page() {
   };
 
   const average = (scores: any) =>
-    Object.values(scores).reduce((a: any, b: any) => a + b, 0) /
+    const average = (scores: any) => {
+  const values = Object.values(scores) as number[];
+  return (
+    values.reduce((a, b) => a + b, 0) /
+    (values.length || 1)
+  );
+};.reduce((a: any, b: any) => a + b, 0) /
     (Object.values(scores).length || 1);
 
   const data = criteria.map((item) => ({
