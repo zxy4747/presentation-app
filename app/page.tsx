@@ -38,7 +38,6 @@ export default function Page() {
   const [submitted, setSubmitted] = useState(false);
   const [history, setHistory] = useState<any[]>([]);
 
-  // 履歴読み込み
   useEffect(() => {
     const saved = localStorage.getItem("presentation-history");
     if (saved) {
@@ -142,7 +141,6 @@ export default function Page() {
           <>
             <h2 className="text-xl font-semibold mb-4">結果</h2>
 
-            {/* 各項目 */}
             <div className="space-y-3">
               {criteria.map((item) => {
                 const diff =
@@ -169,20 +167,13 @@ export default function Page() {
               })}
             </div>
 
-            {/* 平均 */}
             <div className="mt-4">
               <p>自己平均: {average(selfScores).toFixed(2)}</p>
               <p>他者平均: {average(otherScores).toFixed(2)}</p>
             </div>
 
-            {/* グラフ */}
             <div className="flex justify-center mt-6">
-              <RadarChart
-                outerRadius={100}
-                width={300}
-                height={250}
-                data={data}
-              >
+              <RadarChart width={300} height={250} data={data}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="subject" />
                 <PolarRadiusAxis />
@@ -191,14 +182,10 @@ export default function Page() {
               </RadarChart>
             </div>
 
-            {/* 履歴 */}
             <div className="mt-6">
               <h3 className="font-bold mb-2">履歴</h3>
               {history.map((item, index) => (
-                <div
-                  key={index}
-                  className="border p-3 rounded-xl mb-2"
-                >
+                <div key={index} className="border p-3 rounded-xl mb-2">
                   <p>{item.date}</p>
                   <button
                     className="mt-2 px-3 py-1 bg-gray-300 rounded"
