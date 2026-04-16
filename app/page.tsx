@@ -1,12 +1,28 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-} from "recharts";
+import dynamic from "next/dynamic";
+
+// ⭐ recharts（SSR対策）
+const RadarChart = dynamic(
+  () => import("recharts").then((mod) => mod.RadarChart),
+  { ssr: false }
+);
+const Radar = dynamic(
+  () => import("recharts").then((mod) => mod.Radar),
+  { ssr: false }
+);
+const PolarGrid = dynamic(
+  () => import("recharts").then((mod) => mod.PolarGrid),
+  { ssr: false }
+);
+const PolarAngleAxis = dynamic(
+  () => import("recharts").then((mod) => mod.PolarAngleAxis),
+  { ssr: false }
+);
+const PolarRadiusAxis = dynamic(
+  () => import("recharts").then((mod) => mod.PolarRadiusAxis),
+  { ssr: false }
+);
 
 const criteria = [
   "資料の見やすさ",
@@ -22,7 +38,7 @@ export default function Page() {
   const [submitted, setSubmitted] = useState(false);
   const [history, setHistory] = useState<any[]>([]);
 
-  // 初回ロードで履歴読み込み
+  // 履歴読み込み
   useEffect(() => {
     const saved = localStorage.getItem("presentation-history");
     if (saved) {
@@ -48,7 +64,6 @@ export default function Page() {
     other: otherScores[item] || 0,
   }));
 
-  // 保存処理
   const saveResult = () => {
     const newData = {
       selfScores,
@@ -58,7 +73,6 @@ export default function Page() {
 
     const updated = [...history, newData];
     setHistory(updated);
-
     localStorage.setItem("presentation-history", JSON.stringify(updated));
 
     setSubmitted(true);
@@ -97,7 +111,7 @@ export default function Page() {
               </button>
             </div>
 
-            {/* 評価入力 */}
+            {/* 入力 */}
             <div className="space-y-4">
               {criteria.map((item) => (
                 <div key={item} className="border p-3 rounded-xl">
