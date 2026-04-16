@@ -1,5 +1,4 @@
 "use client";
-// 強制更新
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
@@ -54,15 +53,14 @@ export default function Page() {
     }
   };
 
-  const average = (scores: any) =>
-    const average = (scores: any) => {
-  const values = Object.values(scores) as number[];
-  return (
-    values.reduce((a, b) => a + b, 0) /
-    (values.length || 1)
-  );
-};.reduce((a: any, b: any) => a + b, 0) /
-    (Object.values(scores).length || 1);
+  // ⭐ 修正済み
+  const average = (scores: any) => {
+    const values = Object.values(scores) as number[];
+    return (
+      values.reduce((a, b) => a + b, 0) /
+      (values.length || 1)
+    );
+  };
 
   const data = criteria.map((item) => ({
     subject: item,
@@ -93,7 +91,6 @@ export default function Page() {
 
         {!submitted ? (
           <>
-            {/* モード切り替え */}
             <div className="flex justify-center gap-4 mb-6">
               <button
                 className={`px-4 py-2 rounded-xl ${
@@ -117,7 +114,6 @@ export default function Page() {
               </button>
             </div>
 
-            {/* 入力 */}
             <div className="space-y-4">
               {criteria.map((item) => (
                 <div key={item} className="border p-3 rounded-xl">
